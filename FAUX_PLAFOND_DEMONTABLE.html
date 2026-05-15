@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BY OOPSANOO - SMART PRO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --main-bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --success-neon: #22c55e;
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        [data-theme="light"] {
+            --main-bg: #f1f5f9;
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --glass-border: rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--main-bg);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 8px;
+            font-size: 13px;
+        }
+
+        .app-container {
+            max-width: 100%;
+            margin: auto;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+            position: relative;
+        }
+
+        header {
+            background: var(--accent-gradient);
+            color: white;
+            padding: 25px 15px;
+            text-align: center;
+            clip-path: ellipse(120% 100% at 50% 0%);
+        }
+
+        header h1 { margin: 0; font-size: 20px; font-weight: 800; }
+
+        .header-icon {
+            position: absolute;
+            top: 20px;
+            width: 38px;
+            height: 38px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .theme-btn { right: 15px; }
+        .fb-btn { left: 15px; text-decoration: none; }
+
+        .toolbar {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            padding: 15px;
+        }
+
+        .icon-btn {
+            border: none;
+            border-radius: 12px;
+            padding: 12px 5px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            font-size: 10px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .bg-pdf { background: #ef4444; }
+        .bg-print { background: #10b981; }
+        .bg-save { background: #f59e0b; }
+
+        .main-inputs {
+            display: flex;
+            gap: 10px;
+            padding: 15px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 15px;
+            margin: 0 10px 10px;
+        }
+
+        .input-box { flex: 1; text-align: center; }
+        .input-box label { display: block; font-size: 10px; color: var(--text-secondary); margin-bottom: 5px; }
+        .input-box input {
+            width: 80%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            padding: 8px;
+            color: var(--text-primary);
+            font-weight: bold;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+        th { background: rgba(255,255,255,0.05); color: var(--text-secondary); padding: 10px 2px; font-size: 9px; }
+        td { padding: 10px 2px; border-bottom: 1px solid var(--glass-border); text-align: center; font-size: 11px; }
+
+        .edit-input {
+            width: 85%;
+            padding: 5px;
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            text-align: center;
+            font-size: 11px;
+            background: rgba(0,0,0,0.2);
+            color: var(--success-neon);
+            font-weight: bold;
+        }
+
+        .footer-banner { background: rgba(0,0,0,0.2); padding: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .total-price { font-weight: 800; color: var(--text-primary); font-size: 18px; }
+
+        .qr-container {
+            display: none;
+            text-align: center;
+        }
+        .qr-container img { width: 80px; height: 80px; }
+
+        @media print {
+            body { background: white !important; color: black !important; padding: 0; }
+            .app-container { border: none; box-shadow: none; background: white !important; position: relative; }
+            .no-print { display: none !important; }
+            header { background: #eee !important; color: black !important; clip-path: none; padding: 10px; border-bottom: 2px solid #333; }
+            header h1 { font-size: 24px; }
+            th { background: #f0f0f0 !important; color: black !important; border: 1px solid #ddd; }
+            td { border: 1px solid #ddd; color: black !important; }
+            .edit-input { border: none; background: transparent !important; color: black !important; width: 100%; font-size: 12px; }
+            .main-inputs { background: white !important; border: 1px solid #ddd; margin: 20px 0; }
+            .main-inputs input { border: none; color: black !important; }
+            .footer-banner { background: white !important; border-top: 2px solid #333; color: black !important; margin-top: 20px; }
+            .total-price { color: black !important; font-size: 22px; text-shadow: none; }
+            
+            .qr-container { 
+                display: block !important; 
+                position: absolute; 
+                top: 15px; 
+                right: 15px; 
+            }
+            @page { margin: 1.5cm; }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+
+<div class="app-container">
+    <header>
+        <a href="https://www.facebook.com/share/1CL4sUUNdZ/" target="_blank" class="header-icon fb-btn no-print">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <button class="header-icon theme-btn no-print" onclick="toggleTheme()">🌓</button>
+
+        <h1>BY OOPSANOO</h1>
+        <p>FAUX PLAFOND DEMONTABLE</p>
+    </header>
+
+    <div class="qr-container">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.facebook.com/share/1CL4sUUNdZ/" alt="QR Code">
+    </div>
+
+    <div class="toolbar no-print">
+        <button class="icon-btn bg-pdf" onclick="window.print()">📄<span>PDF</span></button>
+        <button class="icon-btn bg-print" onclick="window.print()">🖨️<span>طباعة</span></button>
+        <button class="icon-btn bg-save" onclick="savePrices()">💾<span>حفظ</span></button>
+    </div>
+
+    <div class="main-inputs">
+        <div class="input-box">
+            <label>المساحة (M²)</label>
+            <input type="number" id="areaInput" value="100" oninput="calculate(true)">
+        </div>
+        <div class="input-box">
+            <label>المتوسط / M²</label>
+            <div id="avgPrice" style="font-weight: 800; color: #a855f7; font-size: 16px; margin-top:5px;">0 دج</div>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 35%;">المادة</th>
+                <th style="width: 12%;">وحدة</th>
+                <th style="width: 18%;">السعر</th>
+                <th style="width: 18%;">الكمية</th>
+                <th style="width: 17%;">الإجمالي</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+
+    <div class="footer-banner">
+        <div>
+            <span style="font-size: 10px; color: var(--text-secondary);">إجمالي التكلفة</span>
+            <div class="total-price" id="grandTotal">0 دج</div>
+        </div>
+        <div style="font-size: 9px; color: var(--text-secondary); text-align: left;">
+            التاريخ: <span id="currentDate"></span><br>
+            <b>BY OOPSANOO</b>
+        </div>
+    </div>
+</div>
+
+<script>
+    const itemsData = [
+        { name: "FAUX PLAFOND", unit: "M²", coeff: 1, defaultPrice: 495 },
+        { name: "PORTEUR 3.60", unit: "U", coeff: 0.25, defaultPrice: 400 },
+        { name: "ENTRETOISE 1.2", unit: "U", coeff: 1.5, defaultPrice: 180 },
+        { name: "ENTRETOISE 0.6", unit: "U", coeff: 1.5, defaultPrice: 90 },
+        { name: "CORNIERE", unit: "U", coeff: 0.2, defaultPrice: 120 },
+        { name: "CHEVILLE 6*38", unit: "U", coeff: 2.8, defaultPrice: 4 },
+        { name: "TIGE LISSE", unit: "U", coeff: 1.5, defaultPrice: 10 },
+        { name: "RESSORT", unit: "U", coeff: 0.75, defaultPrice: 20 },
+        { name: "CHEVILLE", unit: "U", coeff: 0.75, defaultPrice: 20 }
+    ];
+
+    document.getElementById('currentDate').innerText = new Date().toLocaleDateString('ar-DZ');
+
+    function toggleTheme() {
+        const body = document.body;
+        body.setAttribute('data-theme', body.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+    }
+
+    function calculate(autoCalc = true) {
+        const area = parseFloat(document.getElementById('areaInput').value) || 0;
+        const tbody = document.getElementById('tableBody');
+        let total = 0;
+        const saved = JSON.parse(localStorage.getItem('oops_prices')) || {};
+
+        if (tbody.innerHTML === "") {
+            itemsData.forEach((item, i) => {
+                let p = saved[i] || item.defaultPrice;
+                tbody.innerHTML += `
+                    <tr>
+                        <td style="text-align:right;">${item.name}</td>
+                        <td>${item.unit}</td>
+                        <td><input type="number" class="edit-input" id="p-${i}" value="${p}" oninput="calculate(false)"></td>
+                        <td><input type="number" class="edit-input" id="q-${i}" value="0" oninput="calculate(false)"></td>
+                        <td id="t-${i}">0</td>
+                    </tr>`;
+            });
+        }
+
+        itemsData.forEach((item, i) => {
+            const price = parseFloat(document.getElementById(`p-${i}`).value) || 0;
+            let qtyInput = document.getElementById(`q-${i}`);
+            if (autoCalc) qtyInput.value = Math.ceil(item.coeff * area);
+            const qty = parseFloat(qtyInput.value) || 0;
+            const sub = qty * price;
+            document.getElementById('t-' + i).innerText = Math.round(sub).toLocaleString();
+            total += sub;
+        });
+
+        document.getElementById('grandTotal').innerText = Math.round(total).toLocaleString() + " دج";
+        document.getElementById('avgPrice').innerText = (area > 0 ? Math.round(total/area).toLocaleString() : 0) + " دج";
+    }
+
+    function savePrices() {
+        const prices = {};
+        itemsData.forEach((_, i) => prices[i] = document.getElementById(`p-${i}`).value);
+        localStorage.setItem('oops_prices', JSON.stringify(prices));
+        alert("✅ تم حفظ الأسعار بنجاح!");
+    }
+
+    calculate(true);
+</script>
+</body>
+</html>
+
